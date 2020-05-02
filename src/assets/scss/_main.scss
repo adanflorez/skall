@@ -1,0 +1,50 @@
+@import "global";
+
+/*#########################################
+# MAIN STYLES
+##########################################*/
+
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+}
+
+html,
+body {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  color: $dark-gray;
+  line-height: 1.25;
+  font-size: 16px;
+  margin: 0;
+}
+
+label {
+  display: block;
+}
+
+input:focus {
+  outline: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: $dark-gray;
+}
+
+button {
+  outline: none;
+}
+
+p {
+  margin: 0;
+}
+
+.weak {
+  font-family: "Roboto-Light";
+}
