@@ -1,0 +1,33 @@
+footer {
+  padding: 80px 0;
+  text-align: center;
+  color: #ffffff;
+  background-color: #1a1a1a;
+
+  .logo {
+    max-width: 180px;
+    min-width: 160px;
+  }
+
+  a {
+    color: #ffffff;
+  }
+  a:hover {
+    color: #ffffff;
+  }
+  .list-inline .list-inline-item {
+    display: inline;
+    padding: 10px 15px;
+  }
+}
+
+@media (max-width: 575.99px) {
+  footer {
+    padding: 30px 0;
+
+    .list-inline .list-inline-item {
+        display: list-item;
+      }
+  }
+  
+}

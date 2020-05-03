@@ -1,0 +1,10 @@
+section {
+    .content {
+        @media (min-width: 768px) and (max-width: 997.99px){
+            img {
+                margin-right: auto;
+                margin-left: auto;
+            }
+        }
+    }
+}

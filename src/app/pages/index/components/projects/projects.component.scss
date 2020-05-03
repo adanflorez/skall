@@ -1,0 +1,21 @@
+section {
+  padding-top: 0;
+  img {
+    width: 100%;
+  }
+
+  .portfolio-container img {
+    -moz-transition: all 0.8s;
+    -webkit-transition: all 0.8s;
+    transition: all 0.8s;
+  }
+  .portfolio-container:hover img {
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+  .portfolio-container {
+    position: relative;
+    overflow: hidden;
+  }
+}
