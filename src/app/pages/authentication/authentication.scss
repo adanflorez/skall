@@ -1,0 +1,41 @@
+.d-flex {
+  .left-side {
+    padding: 48px;
+    height: 100vh;
+    flex: 4;
+    background: url(../../../assets/img/authentication/bg.jpg);
+    background-size: cover;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  .right-side {
+    padding: 48px;
+    flex: 5;
+
+    .form-container {
+      width: 85%;
+      .form {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 575.99px) {
+  .d-flex {
+    flex-direction: column;
+
+    .left-side {
+      height: 200px;
+
+      img {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+}
