@@ -45,22 +45,6 @@ p {
   margin: 0;
 }
 
-hr {
-  border-top: 1px solid #f5f5f5;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-left {
-  text-align: left;
-}
-
-.text-right {
-  text-align: right;
-}
-
 section {
   padding-top: 80px;
   padding-bottom: 80px;
@@ -75,4 +59,25 @@ section {
 
 .mat-form-field {
   width: 100%;
+}
+
+.alert {
+  font-size: 13px;
+}
+
+.alert.alert-success {
+  background: #0abb87;
+  border: 1px solid #0abb87;
+  color: #fff;
+}
+
+button.close {
+  height: 100%;
+  float: right;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
 }

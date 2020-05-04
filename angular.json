@@ -32,8 +32,7 @@
               "src/styles.scss",
               "src/assets/scss/_fonts.scss",
               "src/assets/scss/_main.scss",
-              "src/assets/scss/_titles.scss",
-              "src/assets/scss/bootstrap-grid.scss"
+              "src/assets/scss/_titles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

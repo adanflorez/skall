@@ -3,6 +3,7 @@ import { AuthenticationService } from './../../../services/authentication/authen
 import { Component, OnInit } from '@angular/core';
 import DocumentType from 'src/app/models/documentType.interface';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { HttpResponse, HttpErrorResponse } from "@angular/common/http";
 
 
 @Component({
@@ -16,7 +17,13 @@ export class RegisterComponent implements OnInit {
 
   documentTypes: DocumentType[] = null;
 
+  formDisabled = false;
+
   constructor(private fb: FormBuilder, private authService: AuthenticationService, private globalService: GlobalService) { }
+
+  alertState = false;
+  alertType: string;
+  alertMessage: string;
 
   ngOnInit() {
     this.validationForm = this.fb.group({
@@ -42,10 +49,19 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser() {
+    this.formDisabled = true;
     this.authService.registerUser(this.validationForm.value).subscribe(res => {
       console.log(res);
-    }, err => {
+      this.alertState = true;
+      this.alertType = 'success';
+      this.alertMessage = 'Registro exitoso';
+      this.formDisabled = false;
+    }, (err: HttpErrorResponse) => {
       console.error(err);
+      this.alertState = true;
+      this.alertType = 'danger';
+      this.alertMessage = err.error.message;
+      this.formDisabled = false;
     });
   }
 
@@ -55,5 +71,9 @@ export class RegisterComponent implements OnInit {
     }, err => {
       console.error(err);
     });
+  }
+
+  closeAlert() {
+    this.alertState = false;
   }
 }
