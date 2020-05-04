@@ -1,12 +1,12 @@
 <div class="d-flex">
     <div class="left-side">
-        <img src="assets/img/Logo-Positivo.png" alt="">
+        <!-- <img src="assets/img/Logo-Positivo.png" alt=""> -->
     </div>
     <div class="right-side d-flex align-items-center">
         <div class="container">
             <div class="row mb-4">
                 <div class="mx-auto form-container">
-                    <h2 class="text-center mb-4">
+                    <h2 class="text-center">
                         Registrate
                     </h2>
                     <form class="form">
@@ -14,48 +14,81 @@
                             <div class="col-6">
                                 <mat-form-field>
                                     <mat-label>Nombre</mat-label>
-                                    <input matInput placeholder="Ex. Adan" value="" required>
+                                    <input matInput placeholder="Ex. Adan"
+                                        [formControl]="validationForm.controls['firstName']" required>
+                                    <mat-error *ngIf="validationForm.controls['firstName'].invalid">
+                                        {{ getErrorMessage(validationForm.controls['firstName']) }}
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                             <div class="col-6">
                                 <mat-form-field>
-                                    <mat-label>Apellidos</mat-label>
-                                    <input matInput placeholder="Ex. Florez" value="" required>
+                                    <mat-label>Primer apellido</mat-label>
+                                    <input matInput placeholder="Ex. Florez"
+                                        [formControl]="validationForm.controls['lastName']" required>
+                                    <mat-error *ngIf="validationForm.controls['lastName'].invalid">
+                                        {{ getErrorMessage(validationForm.controls['lastName']) }}
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-sm-12 col-lg-6">
+                                <mat-form-field>
+                                    <mat-label>Segundo apellido</mat-label>
+                                    <input matInput placeholder="Ex. Bermudez"
+                                        [formControl]="validationForm.controls['secondLastName']" required>
+                                    <mat-error *ngIf="validationForm.controls['secondLastName'].invalid">
+                                        {{ getErrorMessage(validationForm.controls['secondLastName']) }}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-6">
                                 <mat-form-field>
                                     <mat-label>Email</mat-label>
-                                    <input matInput placeholder="Ex. adan@skall.com" type="email" value="" required>
+                                    <input matInput placeholder="Ex. adan@skall.com" type="email"
+                                        [formControl]="validationForm.controls['email']" required>
+                                    <mat-error *ngIf="validationForm.controls['email'].invalid">
+                                        {{ getErrorMessage(validationForm.controls['email']) }}
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
+                            <div class="col-sm-12 col-lg-6">
                                 <mat-form-field>
                                     <mat-label>Celular</mat-label>
-                                    <input matInput placeholder="Ex. 300 123 4567" value="" required>
+                                    <input matInput placeholder="Ex. 3001234567"
+                                        [formControl]="validationForm.controls['phoneNumber']" required>
+                                    <mat-error *ngIf="validationForm.controls['phoneNumber'].invalid">
+                                        {{ getErrorMessage(validationForm.controls['phoneNumber']) }}
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-sm-12 col-lg-6">
                                 <mat-form-field>
                                     <mat-label>Tipo de documento</mat-label>
-                                    <mat-select>
+                                    <mat-select [formControl]="validationForm.controls['documentType']">
                                         <mat-option *ngFor="let documentType of documentTypes"
-                                            [value]="documentType.id">
-                                            {{documentType.name}}
+                                            [value]="documentType.name">
+                                            {{documentType.description}}
                                         </mat-option>
                                     </mat-select>
+                                    <mat-error *ngIf="validationForm.controls['documentType'].invalid">
+                                        {{ getErrorMessage(validationForm.controls['documentType']) }}
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
-                            <div class="col-6">
+                            <div class="col-sm-12 col-lg-6">
                                 <mat-form-field>
                                     <mat-label>Número de documento</mat-label>
-                                    <input matInput placeholder="Ex.1123000000" value="" required>
+                                    <input matInput placeholder="Ex.1123000000"
+                                        [formControl]="validationForm.controls['documentNumber']" required>
+                                    <mat-error *ngIf="validationForm.controls['documentNumber'].invalid">
+                                        {{ getErrorMessage(validationForm.controls['documentNumber']) }}
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -63,13 +96,18 @@
                             <div class="col-12">
                                 <mat-form-field>
                                     <mat-label>Contraseña</mat-label>
-                                    <input matInput type="password" value="" required>
+                                    <input matInput type="password" value=""
+                                        [formControl]="validationForm.controls['password']" required>
+                                    <mat-error *ngIf="validationForm.controls['password'].invalid">
+                                        {{ getErrorMessage(validationForm.controls['password']) }}
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12">
-                                <button mat-raised-button color="primary">Registrarse</button>
+                            <div class="col-12 mt-4">
+                                <button mat-raised-button color="primary" (click)="registerUser()"
+                                    [disabled]="!validationForm.valid">Registrarse</button>
                             </div>
                         </div>
                     </form>

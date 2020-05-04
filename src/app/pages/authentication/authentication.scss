@@ -3,8 +3,9 @@
     padding: 48px;
     height: 100vh;
     flex: 4;
-    background: url(../../../assets/img/authentication/bg.jpg);
+    background: url(../../../assets/img/authentication/users.webp);
     background-size: cover;
+    background-position: center;
 
     img {
       max-width: 100%;
@@ -25,12 +26,13 @@
   }
 }
 
-@media (max-width: 575.99px) {
+@media (max-width: 767.99px) {
   .d-flex {
     flex-direction: column;
 
     .left-side {
-      height: 200px;
+      background-position: center;
+      min-height: 250px;
 
       img {
         margin-left: auto;
