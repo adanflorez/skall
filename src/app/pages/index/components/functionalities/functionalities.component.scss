@@ -1,10 +1,12 @@
+@import "global";
+
 section {
-  background: #f5f5f5;
+  background: $white;
   text-align: center;
 
   .container {
     h2 {
-      color: #f87219;
+      color: $orange;
     }
 
     h3 {

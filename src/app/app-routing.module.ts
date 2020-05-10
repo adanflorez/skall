@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'feed',
+    loadChildren: './pages/feed/feed.module#FeedModule',
   }
 ];
 

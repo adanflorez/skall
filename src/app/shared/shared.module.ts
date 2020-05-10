@@ -1,16 +1,24 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
+import { NavbarComponent } from './navbar/navbar.component';
+
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
-    FooterComponent
+    FooterComponent,
+    NavbarComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    NgbDropdownModule,
+    RouterModule
   ],
   exports: [
-    FooterComponent
+    FooterComponent,
+    NavbarComponent
   ]
 })
 export class SharedModule { }

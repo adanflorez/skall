@@ -1,5 +1,7 @@
+@import 'global';
+
 section {
-  background: #f5f5f5;
+  background: $white;
   .pricing-container {
     margin: 15px 0;
   }
@@ -8,10 +10,6 @@ section {
     border-radius: 2px;
     width: 100%;
 
-    /* h2 {
-      font-size: 70px;
-      font-weight: 600;
-    } */
     span {
       font-size: 20px;
     }
@@ -20,13 +18,13 @@ section {
     }
   }
   .plan-light {
-    background-color: #ffffff;
-    border: 2px solid #1a1a1a;
+    background-color: #fff;
+    border: 2px solid $black;
   }
   .plan-dark {
-    background-color: #1a1a1a;
-    border: 2px solid #1a1a1a;
-    color: #ffffff;
+    background-color: $black;
+    border: 2px solid $black;
+    color: #fff;
   }
 
   .btn {
@@ -39,15 +37,15 @@ section {
     text-transform: uppercase;
 
     &.btn-dark {
-      background-color: #1a1a1a;
-      color: #ffffff;
-      border: 2px solid #1a1a1a;
+      background-color: $black;
+      color: #fff;
+      border: 2px solid $black;
     }
 
     &.btn-transparent {
       background-color: transparent;
-      color: #ffffff;
-      border: 2px solid #ffffff;
+      color: #fff;
+      border: 2px solid #fff;
     }
   }
 
