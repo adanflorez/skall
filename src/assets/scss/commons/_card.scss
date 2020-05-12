@@ -4,5 +4,23 @@
     -webkit-box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
     box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
     border: 0;
+
+    & > .card-body {
+      padding: 2rem 2.25rem;
+    }
+
+    &.card-stretch {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: stretch !important;
+      -ms-flex-align: stretch !important;
+      align-items: stretch !important;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      height: 100%;
+    }
   }
 }

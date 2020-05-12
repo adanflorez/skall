@@ -20,7 +20,12 @@ export class RegisterComponent implements OnInit {
 
   formDisabled = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthenticationService, private globalService: GlobalService, private router: Router) { }
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthenticationService,
+    private globalService: GlobalService,
+    private router: Router
+  ) { }
 
   alertState = false;
   alertType: string;

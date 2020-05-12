@@ -1,1 +1,143 @@
-<p>profile works!</p>
+<section class="user-screen">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card card-custom">
+                            <img class="card-img-top" src="assets/img/authentication/banner-profile.jpeg"
+                                alt="Card image cap">
+                            <img class="profile" src="assets/img/authentication/profile.jpeg" alt="">
+                            <div class="card-body">
+                                <div class="col-xl-7">
+                                    <h3 class="text-dark">Adan Florez Bermudez</h3>
+                                    <p>Este es un salon de clases donde se enseñará matematicas, calculo,
+                                        geometría, axlebra
+                                        lineal, entre otros</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6">
+                        <!--begin::Stats Widget 13-->
+                        <div class="card card-custom gutter-b">
+                            <!--begin::Body-->
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
+                                    <div class="d-flex flex-column mr-2">
+                                        <a href="#" class="text-hover-primary font-weight-bolder font-size-h5">
+                                            <i class="fas fa-users fa-2x icon-success"></i>
+                                        </a>
+                                        <h4 class="text-muted mt-2">Usuarios afiliados</h4>
+                                    </div>
+                                    <span class="symbol symbol-light-success symbol-45">
+                                        <span class="symbol-label font-weight-bold font-size-h6">57</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Stats Widget 13-->
+                    </div>
+                    <div class="col-xl-6">
+                        <!--begin::Stats Widget 13-->
+                        <div class="card card-custom gutter-b">
+                            <!--begin::Body-->
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
+                                    <div class="d-flex flex-column mr-2">
+                                        <a href="#" class="text-hover-primary font-weight-bolder font-size-h5">
+                                            <i class="fas fa-book-reader fa-2x icon-info"></i>
+                                        </a>
+                                        <h4 class="text-muted mt-2">Clases</h4>
+                                    </div>
+                                    <span class="symbol symbol-light-primary symbol-45">
+                                        <span class="symbol-label font-weight-bold">57</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Stats Widget 13-->
+                    </div>
+                </div>
+                <div class="row">
+
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="col-xl-12">
+                    <div class="card card-custom gutter-b">
+                        <div class="card-body">
+                            <h4>Crear nueva clase</h4>
+                            <form class="form" disabled>
+                                <fieldset [disabled]="formDisabled">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <mat-form-field>
+                                                <mat-label>Titulo</mat-label>
+                                                <input matInput placeholder="Ex. Matematicas"
+                                                    [formControl]="classForm.controls['title']" required>
+                                                <mat-error *ngIf="classForm.controls['title'].invalid">
+                                                    {{ getErrorMessage(classForm.controls['title']) }}
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>Descripción</mat-label>
+                                                <textarea matInput placeholder="Describe de que trata la clase..."
+                                                    [formControl]="classForm.controls['description']"
+                                                    required></textarea>
+                                                <mat-error *ngIf="classForm.controls['description'].invalid">
+                                                    {{ getErrorMessage(classForm.controls['description']) }}
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <mat-form-field>
+                                                <mat-label>Categoría</mat-label>
+                                                <mat-select [formControl]="classForm.controls['documentType']">
+                                                    <mat-option *ngFor="let documentType of documentTypes"
+                                                        [value]="documentType.name">
+                                                        {{documentType.description}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="classForm.controls['documentType'].invalid">
+                                                    {{ getErrorMessage(classForm.controls['documentType']) }}
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <mat-form-field>
+                                                <mat-label>Contraseña</mat-label>
+                                                <input matInput type="password" value=""
+                                                    [formControl]="classForm.controls['password']">
+                                                <mat-error *ngIf="classForm.controls['password'].invalid">
+                                                    {{ getErrorMessage(classForm.controls['password']) }}
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 mt-4">
+                                            <button mat-raised-button color="primary"
+                                                [disabled]="!classForm.valid || formDisabled">Crear</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

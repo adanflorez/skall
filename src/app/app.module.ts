@@ -18,12 +18,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserComponent } from './layout/user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbAlertModule
+    NgbAlertModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
