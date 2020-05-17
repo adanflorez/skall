@@ -3,6 +3,7 @@ import { RegisterComponent } from './pages/authentication/register/register.comp
 import { LoginComponent } from './pages/authentication/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
   {
@@ -27,10 +28,17 @@ const routes: Routes = [
       {
         path: 'feed',
         loadChildren: './pages/feed/feed.module#FeedModule',
+        canActivate: [AuthGuard]
       },
       {
         path: 'profile',
         loadChildren: './pages/profile/profile.module#ProfileModule',
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'search',
+        loadChildren: './pages/search/search.module#SearchModule',
+        // canActivate: [AuthGuard]
       }
     ]
   }

@@ -2,8 +2,51 @@
   margin-bottom: 16px;
   &.card-custom {
     -webkit-box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
-    box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
+    box-shadow: 0 10px 20px 0 rgba(82, 63, 105, 0.05);
     border: 0;
+
+    & > .card-header {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+      align-items: stretch;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      min-height: 70px;
+      padding-top: 0;
+      padding-bottom: 0;
+      background-color: transparent;
+
+      .card-title {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        margin: 0.5rem;
+        margin-left: 0;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+
+      .card-toolbar {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        margin: 0.5rem 0;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+    }
 
     & > .card-body {
       padding: 2rem 2.25rem;
@@ -21,6 +64,36 @@
       -ms-flex-direction: column;
       flex-direction: column;
       height: 100%;
+    }
+
+    &.card-border {
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      border: 1px solid #ecf0f3;
+    }
+
+    /* .card-header .card-title,
+    .card.card-custom > .card-header .card-title .card-label {
+      font-weight: 500;
+      font-size: 1.275rem;
+      color: #212121;
+    } */
+  }
+
+  .card-header {
+    padding: 2rem 2.25rem;
+    margin-bottom: 0;
+    background-color: #fff;
+    border-bottom: 1px solid #ecf0f3;
+
+    &:first-child {
+      border-radius: calc(0.42rem - 1px) calc(0.42rem - 1px) 0 0;
+    }
+
+    &.card-title {
+      font-weight: 500;
+      font-size: 1.275rem;
+      color: #212121;
     }
   }
 }

@@ -1,7 +1,7 @@
 .d-flex {
   .left-side {
     padding: 48px;
-    height: 100vh;
+    min-height: 100vh;
     flex: 4;
     background: url(../../../assets/img/authentication/users.webp);
     background-size: cover;

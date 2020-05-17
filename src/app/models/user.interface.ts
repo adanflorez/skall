@@ -7,4 +7,5 @@ export default interface User {
     documentType: string;
     documentNumber: string;
     password: string;
+    logo: string;
 }

@@ -1,3 +1,4 @@
+import { environment } from "src/environments/environment";
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    this.authService.logout();
   }
 
   initForm() {
@@ -35,10 +37,15 @@ export class LoginComponent implements OnInit {
   login() {
     this.formDisabled = true;
     this.authService.login(
-      this.loginForm.controls['username'].value,
-      this.loginForm.controls['password'].value)
-      .subscribe((res: HttpResponse<UserLogged>) => {
-        console.log(res);
+      this.loginForm.controls.username.value,
+      this.loginForm.controls.password.value)
+      .subscribe((res: any /* HttpResponse<UserLogged> */) => {
+        const token = res.Authorization;
+        const sessionId = res.SessionId;
+
+        localStorage.setItem(environment.keyToken, token);
+        localStorage.setItem(environment.keySessionId, sessionId);
+
         this.formDisabled = false;
         this.router.navigate(['/feed']);
       }, err => {

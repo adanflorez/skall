@@ -15,10 +15,15 @@ import { RegisterComponent } from './pages/authentication/register/register.comp
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserComponent } from './layout/user/user.component';
+import { AuthGuard } from "./guards/auth.guard";
+import { AuthInterceptor } from "./interceptors/auth.interceptor";
+
+import { CarouselModule } from 'ngx-owl-carousel-o';
+
 
 @NgModule({
   declarations: [
@@ -38,9 +43,16 @@ import { UserComponent } from './layout/user/user.component';
     ReactiveFormsModule,
     HttpClientModule,
     NgbAlertModule,
-    SharedModule
+    SharedModule,
+    CarouselModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

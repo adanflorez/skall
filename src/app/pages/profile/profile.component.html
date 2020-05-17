@@ -7,15 +7,70 @@
                         <div class="card card-custom">
                             <img class="card-img-top" src="assets/img/authentication/banner-profile.jpeg"
                                 alt="Card image cap">
-                            <img class="profile" src="assets/img/authentication/profile.jpeg" alt="">
-                            <div class="card-body">
-                                <div class="col-xl-7">
-                                    <h3 class="text-dark">Adan Florez Bermudez</h3>
-                                    <p>Este es un salon de clases donde se enseñará matematicas, calculo,
-                                        geometría, axlebra
-                                        lineal, entre otros</p>
-                                </div>
+                            <img class="profile" *ngIf="userProfile"
+                                [src]="userProfile.logo ? userProfile.logo : 'assets/img/authentication/profile-user.png'"
+                                alt="">
+                            <div class="container">
+                                <!--begin::Actions-->
+                                <a (click)="open(content)" class="btn btn-light font-weight-bold btn-sm float-right">
+                                    <i class="fas fa-user-edit"></i> Editar
+                                </a>
+                                <!--end::Actions-->
                             </div>
+                            <div class="card-body">
+                                <nav ngbNav #nav="ngbNav" class="nav-tabs">
+                                    <ng-container ngbNavItem>
+                                        <a ngbNavLink>Salon</a>
+                                        <ng-template ngbNavContent *ngIf="parlor">
+                                            <div class="my-3">
+                                                <h3 class="text-dark">
+                                                    {{ parlor.name }}
+                                                    <a *ngIf="parlor.status"
+                                                        class="btn btn-light-primary btn-bold float-right"> Activo </a>
+                                                    <a *ngIf="!parlor.status"
+                                                        class="btn btn-light-danger btn-bold float-right"> Inactivo </a>
+                                                </h3>
+                                                <p> {{parlor.parlorDescription}} </p>
+                                                <a [href]="parlor.notifyUrl" target="_blank" *ngIf="!parlor.notifyUrl">
+                                                    <i class="fas fa-globe"></i> dfdf {{ parlor.notifyUrl }} </a>
+                                                <br>
+                                                <a [href]="parlor.email" target="_blank" *ngIf="parlor.email">
+                                                    <i class="far fa-envelope"></i> {{ parlor.email }} </a>
+
+                                                <br>
+                                                <a [href]="parlor.email" target="_blank" *ngIf="parlor.phoneNumber">
+                                                    <i class="fas fa-phone"></i> {{ parlor.phoneNumber }} </a>
+                                            </div>
+                                        </ng-template>
+                                    </ng-container>
+                                    <ng-container ngbNavItem>
+                                        <a ngbNavLink>Información</a>
+                                        <ng-template ngbNavContent>
+                                            <div class="my-3">
+                                                <h3 class="text-dark">
+                                                    {{ userProfile.firstName + " " + userProfile.lastName + " " + userProfile.secondLastName }}
+                                                </h3>
+                                                <p *ngIf="userProfile.address">
+                                                    <i class="fas fa-map-pin icon-success"></i>
+                                                    {{ userProfile.address }}
+                                                </p>
+                                                <a [href]="userProfile.email" target="_blank" *ngIf="userProfile.email">
+                                                    <i class="far fa-envelope"></i> {{ userProfile.email }} </a>
+                                                <br>
+                                                <a [href]="userProfile.email" target="_blank"
+                                                    *ngIf="userProfile.phoneNumber">
+                                                    <i class="fas fa-phone"></i> {{ userProfile.phoneNumber }} </a>
+                                                <p *ngIf="userProfile.gender">
+                                                    <i class="fas fa-venus-mars icon-danger"></i>
+                                                    {{ userProfile.gender }}
+                                                </p>
+                                            </div>
+                                        </ng-template>
+                                    </ng-container>
+                                </nav>
+                                <div [ngbNavOutlet]="nav" class="mt-2"></div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -33,7 +88,8 @@
                                         <h4 class="text-muted mt-2">Usuarios afiliados</h4>
                                     </div>
                                     <span class="symbol symbol-light-success symbol-45">
-                                        <span class="symbol-label font-weight-bold font-size-h6">57</span>
+                                        <span class="symbol-label font-weight-bold font-size-h6"
+                                            *ngIf="parlor">{{ parlor.subscribers }}</span>
                                     </span>
                                 </div>
                             </div>
@@ -54,7 +110,8 @@
                                         <h4 class="text-muted mt-2">Clases</h4>
                                     </div>
                                     <span class="symbol symbol-light-primary symbol-45">
-                                        <span class="symbol-label font-weight-bold">57</span>
+                                        <span *ngIf="parlor"
+                                            class="symbol-label font-weight-bold">{{ parlor.lessonNumber }}</span>
                                     </span>
                                 </div>
                             </div>
@@ -101,14 +158,14 @@
                                         <div class="col-sm-12">
                                             <mat-form-field>
                                                 <mat-label>Categoría</mat-label>
-                                                <mat-select [formControl]="classForm.controls['documentType']">
-                                                    <mat-option *ngFor="let documentType of documentTypes"
-                                                        [value]="documentType.name">
-                                                        {{documentType.description}}
+                                                <mat-select [formControl]="classForm.controls['categoriesLesson']">
+                                                    <mat-option *ngFor="let categories of categoriesLesson"
+                                                        [value]="categories.name">
+                                                        {{ categories.name }}
                                                     </mat-option>
                                                 </mat-select>
-                                                <mat-error *ngIf="classForm.controls['documentType'].invalid">
-                                                    {{ getErrorMessage(classForm.controls['documentType']) }}
+                                                <mat-error *ngIf="classForm.controls['categoriesLesson'].invalid">
+                                                    {{ getErrorMessage(classForm.controls['categoriesLesson']) }}
                                                 </mat-error>
                                             </mat-form-field>
                                         </div>
@@ -128,7 +185,8 @@
                                     <div class="row">
                                         <div class="col-12 mt-4">
                                             <button mat-raised-button color="primary"
-                                                [disabled]="!classForm.valid || formDisabled">Crear</button>
+                                                [disabled]="!classForm.valid || formDisabled"
+                                                (click)="createLesson()">Crear</button>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -136,8 +194,78 @@
                         </div>
                     </div>
                 </div>
+                <ngb-alert *ngIf="alertState" [type]="alertType" (close)="closeAlert()">
+                    {{ alertMessage }}
+                </ngb-alert>
             </div>
         </div>
+        <div>
+            <div class="card card-custom mr-4">
+                <div class="card-header">
+                    <div class="card-title">
+                        Clases
+                    </div>
+                    <!-- <div class="card-toolbar">
+                        <a href="#" class="btn btn-sm btn-success font-weight-bold">
+                            <i class="fas fa-check"></i> Seguir
+                        </a>
+                    </div> -->
+                </div>
+                <div class="card-body">
+                    <owl-carousel-o *ngIf="lessons" [options]="customOptions">
+                        <ng-container *ngFor="let lesson of lessons">
+                            <ng-template carouselSlide>
+                                <div class="card card-custom card-border mr-4">
+                                    <div class="card-header bg-danger">
+                                        <div class="card-title text-white">
+                                            <span class="card-icon">
+                                                <i class="flaticon2-chat-1 text-primary"></i>
+                                            </span>
+                                            <h3 class="card-label">
+                                                {{ lesson.name }}
+                                                <br>
+                                                <small> {{ lesson.category }} </small>
+                                            </h3>
+                                        </div>
+                                        <div class="card-toolbar">
+                                            <a href="#" class="btn btn-sm btn-white font-weight-bold">
+                                                <i class="fas fa-check"></i> Seguir
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        {{ lesson.description }}
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ng-container>
+                    </owl-carousel-o>
+                </div>
+            </div>
 
+        </div>
     </div>
 </section>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="modal-body">
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s,
+                when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into electronic typesetting,
+                remaining essentially unchanged.
+            </p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">Save</button>
+    </div>
+</ng-template>

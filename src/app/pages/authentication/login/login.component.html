@@ -19,7 +19,7 @@
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Email</mat-label>
                                         <input matInput placeholder="Ex. adan@skall.com" type="email"
-                                            [formControl]="loginForm.controls['username']" required>
+                                            [formControl]="loginForm.controls['username']" value="adan.florez@gmail.com" required>
                                         <mat-error *ngIf="loginForm.controls['username'].invalid">
                                             {{ getErrorMessage(loginForm.controls['username']) }}
                                         </mat-error>
@@ -31,7 +31,7 @@
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Contraseña</mat-label>
                                         <input matInput value="" type="password"
-                                            [formControl]="loginForm.controls['password']" required>
+                                            [formControl]="loginForm.controls['password']" value="Af12345*" required>
                                         <mat-error *ngIf="loginForm.controls['password'].invalid">
                                             {{ getErrorMessage(loginForm.controls['password']) }}
                                         </mat-error>

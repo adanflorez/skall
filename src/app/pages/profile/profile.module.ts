@@ -10,6 +10,11 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
+import { NgbNavModule, NgbAlertModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { CarouselModule } from 'ngx-owl-carousel-o';
+
+
 @NgModule({
   declarations: [ProfileComponent],
   imports: [
@@ -19,7 +24,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     MatInputModule,
     MatSelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbNavModule,
+    NgbAlertModule,
+    NgbModalModule,
+    CarouselModule
   ]
 })
 export class ProfileModule { }

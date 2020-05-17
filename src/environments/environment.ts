@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+  keyToken: 'token',
+  keySessionId: 'sessionId',
   baseURL: 'http://54.166.173.51:9086/'
 };
 

@@ -1,3 +1,4 @@
+import { UserService } from "./../../../services/user/user.service";
 import { GlobalService } from "./../../../services/global.service";
 import { AuthenticationService } from './../../../services/authentication/authentication.service';
 import { Component, OnInit } from '@angular/core';
@@ -14,22 +15,61 @@ import { Router } from "@angular/router";
 })
 export class RegisterComponent implements OnInit {
 
+  alertState = false;
+  alertType: string;
+  alertMessage: string;
+
   validationForm: FormGroup;
 
   documentTypes: DocumentType[] = null;
 
   formDisabled = false;
 
+
+  fileData: File = null;
+  previewUrl: any = null;
+  fileUploadProgress: string = null;
+  uploadedFilePath: string = null;
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthenticationService,
     private globalService: GlobalService,
-    private router: Router
+    private router: Router,
+    private userSevice: UserService
   ) { }
 
-  alertState = false;
-  alertType: string;
-  alertMessage: string;
+
+  fileProgress(fileInput: any) {
+    this.fileData = fileInput.target.files[0] as File;
+    this.preview();
+  }
+
+  preview() {
+    // Show preview
+    const mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (event) => {
+      this.previewUrl = reader.result;
+    };
+  }
+
+  uploadFile() {
+    const formData = new FormData();
+    formData.append('file', this.fileData);
+    this.userSevice.uploadPhoto(formData, this.validationForm.controls['email'].value).subscribe(res => {
+      console.log(res);
+      this.router.navigate(['/login']);
+    }, (err: HttpErrorResponse) => {
+      console.error(err);
+      this.router.navigate(['/login']);
+    });
+  }
 
   ngOnInit() {
     this.validationForm = this.fb.group({
@@ -54,11 +94,11 @@ export class RegisterComponent implements OnInit {
     return field.hasError('email') ? 'Correo inválido' : '';
   }
 
-  registerUser() {
+  registerUser(fileUrl: string) {
     this.formDisabled = true;
-    this.authService.registerUser(this.validationForm.value).subscribe(res => {
+    this.authService.registerUser(this.validationForm.value, fileUrl).subscribe(res => {
       this.formDisabled = false;
-      this.router.navigate(['/login']);
+      this.uploadFile();
     }, (err: HttpErrorResponse) => {
       console.error(err);
       this.alertState = true;

@@ -158,7 +158,7 @@ section.user-screen {
   min-height: 100vh;
   width: 100%;
 
-  &>.container {
+  & > .container {
     padding-top: 86px;
   }
 }
@@ -171,8 +171,61 @@ section.user-screen {
   background-color: #c9f7f5;
 }
 
+.btn {
+  &.btn-white {
+    color: #464e5f;
+    background-color: #fff;
+    border-color: #fff;
+  }
+  &.btn-light-primary {
+    color: #3699ff !important;
+    background-color: #e1f0ff;
+    border-color: transparent;
+  }
+  &.btn-light-danger {
+    color: #f64e60 !important;
+    background-color: #ffe2e5;
+    border-color: transparent;
+  }
+
+  &.btn-success {
+    color: #fff;
+    background-color: #1bc5bd;
+    border-color: #1bc5bd;
+
+    &:hover:not(.btn-text) {
+      color: #fff;
+      background-color: #0bb7af;
+      border-color: #0bb7af;
+    }
+  }
+
+  &.btn-primary {
+    color: #fff;
+    background-color: #3699ff;
+    border-color: #3699ff;
+
+    &:hover:not(.btn-text) {
+      color: #fff;
+      background-color: #187de4;
+      border-color: #187de4;
+    }
+  }
+
+  &.btn-sm {
+    padding: 0.55rem 0.75rem;
+    font-size: 0.925rem;
+    line-height: 1.35;
+    border-radius: 0.42rem;
+  }
+}
+
 .bg-danger {
   background-color: #f64e60 !important;
+}
+
+.bg-success {
+  background-color: #1bc5bd !important;
 }
 
 .icon-info {
@@ -185,6 +238,10 @@ section.user-screen {
 
 .icon-success {
   color: #1bc5bd;
+}
+
+.icon-danger {
+  color: #f64e60;
 }
 
 .font-size-h5 {
@@ -205,6 +262,10 @@ section.user-screen {
 
 .font-weight-bolder {
   font-weight: 600 !important;
+}
+
+.font-weight-bold {
+  font-weight: 500 !important;
 }
 
 .gutter-b {
@@ -260,4 +321,10 @@ section.user-screen {
       }
     }
   }
+}
+
+.modal .modal-header .modal-title {
+  font-weight: 500;
+  font-size: 1.3rem;
+  color: #212121;
 }

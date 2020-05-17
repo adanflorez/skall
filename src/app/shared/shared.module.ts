@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-
 @NgModule({
   declarations: [
     FooterComponent,
@@ -13,7 +11,6 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     CommonModule,
-    NgbDropdownModule,
     RouterModule
   ],
   exports: [

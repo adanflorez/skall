@@ -2,9 +2,8 @@
     <img class="card-img-top" src="assets/img/authentication/banner-profile.jpeg" alt="Card image cap">
     <img class="profile" src="assets/img/authentication/profile.jpeg" alt="">
     <div class="card-body text-center">
-        <h5>Adan Florez Bermudez</h5>
-        <p class="text-left">Este es un salon de clases donde se enseñará matematicas, calculo, geometría, algebra
-            lineal, entre otros</p>
+        <h5>{{ userName }}</h5>
+        <p class="text-left" *ngIf="description"> {{ description }} </p>
     </div>
 </div>
 <div class="card card-custom">
