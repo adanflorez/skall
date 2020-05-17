@@ -1,7 +1,7 @@
-<div class="card card-custom card-profile">
+<div *ngIf="userProfile" class="card card-custom card-profile">
     <img class="card-img-top" src="assets/img/authentication/banner-profile.jpeg" alt="Card image cap">
-    <img class="profile" src="assets/img/authentication/profile.jpeg" alt="">
-    <div *ngIf="userProfile" class="card-body text-center">
+    <img class="profile" [src]="userProfile.logo" alt="">
+    <div class="card-body text-center">
         <h5>{{ userProfile.firstName + " " + userProfile.lastName + " " + userProfile.secondLastName }}</h5>
         <p> {{ userProfile.email }} </p>
     </div>

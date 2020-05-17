@@ -65,7 +65,7 @@ export class UserService {
     const levelOfStudy = form['levelOfStudy'].value;
     const profesion = form['profesion'].value;
     const interest = form['interest'].value;
-    return this.http.put(environment.baseURL + 'update/user/education',
+    return this.http.put(environment.baseURL + 'user/update/education',
       {
         education: [
           {

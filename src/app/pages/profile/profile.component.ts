@@ -128,7 +128,7 @@ export class ProfileComponent implements OnInit {
         this.userProfile.academicList.length ? this.userProfile.academicList[0].specialty : '',
         Validators.required
       ],
-      skill: ['', Validators.required],
+      skill: [[], Validators.required],
       interest: [[], Validators.required]
     });
   }
