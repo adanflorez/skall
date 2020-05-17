@@ -1,3 +1,6 @@
+import { Interest } from './interest.interface';
+import { AcademicList } from './academic-list.interface';
+
 export interface UserProfile {
     address: string;
     email: string;
@@ -7,4 +10,8 @@ export interface UserProfile {
     logo: string;
     phoneNumber: string;
     secondLastName: string;
+    age: number;
+    job: string;
+    academicList: Array<AcademicList>;
+    interestList: Array<Interest>;
 }

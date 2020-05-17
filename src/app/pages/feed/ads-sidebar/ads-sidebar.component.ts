@@ -1,4 +1,6 @@
+import { ParlorService } from "./../../../services/parlor/parlor.service";
 import { Component, OnInit } from '@angular/core';
+import { ParlorTop } from "src/app/models/parlor-top.interface";
 
 @Component({
   selector: 'sk-ads-sidebar',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdsSidebarComponent implements OnInit {
 
-  constructor() { }
+  parlorTop: Array<ParlorTop>;
+
+  constructor(private parlorService: ParlorService) { }
 
   ngOnInit() {
+    this.parlorService.getParlorTop().subscribe(res => {
+      console.log(res)
+      this.parlorTop = res.data.parlor;
+    });
   }
 
 }

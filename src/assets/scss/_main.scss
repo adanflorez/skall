@@ -328,3 +328,7 @@ section.user-screen {
   font-size: 1.3rem;
   color: #212121;
 }
+
+.cdk-overlay-container { 
+  z-index: 1200; 
+}

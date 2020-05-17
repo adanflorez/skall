@@ -11,6 +11,8 @@ import { UserProfile } from 'src/app/models/userProfile.interface';
 import { Lesson } from "src/app/models/lesson.interface";
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Interest } from "src/app/models/interest.interface";
+import { MatDatepickerInputEvent } from "@angular/material/datepicker";
 
 @Component({
   selector: 'sk-profile',
@@ -63,6 +65,15 @@ export class ProfileComponent implements OnInit {
     nav: true
   };
 
+  parlorForm: FormGroup;
+  userForm: FormGroup;
+  userEducationForm: FormGroup;
+
+  interests: Array<Interest>;
+
+  dateInit: Date;
+  dateFinish: Date;
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -78,6 +89,50 @@ export class ProfileComponent implements OnInit {
     this.getCategoriesLesson();
   }
 
+  initStepper() {
+    this.parlorForm = this.fb.group({
+      name: [this.parlor.name, Validators.required],
+      description: [this.parlor.parlorDescription, Validators.required],
+      url: [this.parlor.notifyUrl],
+      email: [this.parlor.email, [Validators.required, Validators.email]],
+      phoneNumber: [this.parlor.phoneNumber, Validators.required],
+    });
+
+    this.userForm = this.fb.group({
+      address: [this.userProfile.address, Validators.required],
+      age: [this.userProfile.age, Validators.required],
+      gender: [this.userProfile.gender, Validators.required],
+      job: [this.userProfile.job, Validators.required]
+    });
+
+    this.userEducationForm = this.fb.group({
+      institution: [
+        this.userProfile.academicList.length ? this.userProfile.academicList[0].nameInstitucion : '', Validators.required
+      ],
+      dateInit: [
+        {
+          value: this.userProfile.academicList.length ? this.userProfile.academicList[0].initEducation : '',
+          disabled: true
+        },
+        [Validators.required]
+      ],
+      dateFinish: [
+        { value: this.userProfile.academicList.length ? this.userProfile.academicList[0].finishEducation : '', disabled: true },
+        [Validators.required]
+      ],
+      levelOfStudy: [
+        this.userProfile.academicList.length ? this.userProfile.academicList[0].levelOfStudy : '',
+        Validators.required
+      ],
+      profesion: [
+        this.userProfile.academicList.length ? this.userProfile.academicList[0].specialty : '',
+        Validators.required
+      ],
+      skill: ['', Validators.required],
+      interest: [[], Validators.required]
+    });
+  }
+
   initForm(): void {
     this.classForm = this.fb.group({
       title: ['', [Validators.required]],
@@ -89,6 +144,7 @@ export class ProfileComponent implements OnInit {
 
   getDetail() {
     this.userService.getDetail().subscribe(res => {
+      console.log(res.data);
       this.userProfile = res.data;
     }, (err: HttpErrorResponse) => {
       console.error(err);
@@ -129,6 +185,15 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  getInterests() {
+    this.userService.getInterest().subscribe(res => {
+      this.interests = res.data.interest;
+      console.log(res);
+    }, err => {
+      console.error(err);
+    });
+  }
+
   createLesson() {
     const form = this.classForm;
     this.lessonService.create(
@@ -156,6 +221,8 @@ export class ProfileComponent implements OnInit {
   }
 
   open(content) {
+    this.initStepper();
+    this.getInterests();
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -170,6 +237,40 @@ export class ProfileComponent implements OnInit {
       return 'by clicking on a backdrop';
     } else {
       return `with: ${reason}`;
+    }
+  }
+
+  updateUserAndParlor() {
+    this.parlorService.updateParlor(this.parlorForm).subscribe(res => {
+      console.log(res);
+    }, err => {
+      console.error(err);
+    });
+    this.userService.update(this.userForm).subscribe(res => {
+      console.log(res);
+    }, err => {
+      console.error(err);
+    });
+    this.userService.updateEducation(
+      this.userEducationForm,
+      this.dateInit,
+      this.dateFinish
+    ).subscribe(res => {
+      console.log(res);
+    }, err => {
+      console.error(err);
+    });
+  }
+
+  change(date: string, event: MatDatepickerInputEvent<Date>) {
+    console.log(event.value);
+    switch (date) {
+      case 'dateInit':
+        this.dateInit = event.value;
+        break;
+      case 'dateFinish':
+        this.dateFinish = event.value;
+        break;
     }
   }
 }

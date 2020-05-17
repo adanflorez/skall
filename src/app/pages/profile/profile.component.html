@@ -7,9 +7,7 @@
                         <div class="card card-custom">
                             <img class="card-img-top" src="assets/img/authentication/banner-profile.jpeg"
                                 alt="Card image cap">
-                            <img class="profile" *ngIf="userProfile"
-                                [src]="userProfile.logo ? userProfile.logo : 'assets/img/authentication/profile-user.png'"
-                                alt="">
+                            <img class="profile" *ngIf="userProfile" [src]="userProfile.logo" alt="">
                             <div class="container">
                                 <!--begin::Actions-->
                                 <a (click)="open(content)" class="btn btn-light font-weight-bold btn-sm float-right">
@@ -31,13 +29,14 @@
                                                         class="btn btn-light-danger btn-bold float-right"> Inactivo </a>
                                                 </h3>
                                                 <p> {{parlor.parlorDescription}} </p>
-                                                <a [href]="parlor.notifyUrl" target="_blank" *ngIf="!parlor.notifyUrl">
-                                                    <i class="fas fa-globe"></i> dfdf {{ parlor.notifyUrl }} </a>
-                                                <br>
+                                                <a [href]="parlor.notifyUrl" target="_blank" *ngIf="parlor.notifyUrl">
+                                                    <i class="fas fa-globe"></i> {{ parlor.notifyUrl }}
+                                                    <br>
+                                                </a>
                                                 <a [href]="parlor.email" target="_blank" *ngIf="parlor.email">
-                                                    <i class="far fa-envelope"></i> {{ parlor.email }} </a>
-
-                                                <br>
+                                                    <i class="far fa-envelope"></i> {{ parlor.email }}
+                                                    <br>
+                                                </a>
                                                 <a [href]="parlor.email" target="_blank" *ngIf="parlor.phoneNumber">
                                                     <i class="fas fa-phone"></i> {{ parlor.phoneNumber }} </a>
                                             </div>
@@ -129,7 +128,7 @@
                     <div class="card card-custom gutter-b">
                         <div class="card-body">
                             <h4>Crear nueva clase</h4>
-                            <form class="form" disabled>
+                            <form class="form">
                                 <fieldset [disabled]="formDisabled">
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -205,11 +204,6 @@
                     <div class="card-title">
                         Clases
                     </div>
-                    <!-- <div class="card-toolbar">
-                        <a href="#" class="btn btn-sm btn-success font-weight-bold">
-                            <i class="fas fa-check"></i> Seguir
-                        </a>
-                    </div> -->
                 </div>
                 <div class="card-body">
                     <owl-carousel-o *ngIf="lessons" [options]="customOptions">
@@ -249,23 +243,174 @@
 
 <ng-template #content let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+        <h4 class="modal-title" id="modal-basic-title">Actualizar</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <i class="fas fa-times"></i>
         </button>
     </div>
     <div class="modal-body">
         <div class="modal-body">
-            <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s,
-                when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into electronic typesetting,
-                remaining essentially unchanged.
-            </p>
+            <mat-horizontal-stepper #stepper>
+                <mat-step [stepControl]="parlorForm">
+                    <form [formGroup]="parlorForm">
+                        <ng-template matStepLabel>Salon</ng-template>
+                        <mat-form-field>
+                            <mat-label>Nombre del salon</mat-label>
+                            <input matInput placeholder="Salon" formControlName="name" required>
+                            <mat-error *ngIf="parlorForm.controls['name'].invalid">
+                                {{ getErrorMessage(parlorForm.controls['name']) }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Descripción</mat-label>
+                            <textarea matInput placeholder="Describe de que trata la clase..."
+                                formControlName="description" required></textarea>
+                            <mat-error *ngIf="parlorForm.controls['description'].invalid">
+                                {{ getErrorMessage(parlorForm.controls['description']) }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Url</mat-label>
+                            <input matInput placeholder="https://salon.com" formControlName="url">
+                            <mat-error *ngIf="parlorForm.controls['url'].invalid">
+                                {{ getErrorMessage(parlorForm.controls['url']) }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Correo</mat-label>
+                            <input matInput placeholder="correo@skall.com" type="email" formControlName="email"
+                                required>
+                            <mat-error *ngIf="parlorForm.controls['email'].invalid">
+                                {{ getErrorMessage(parlorForm.controls['email']) }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Celular</mat-label>
+                            <input matInput placeholder="Ex. 3001234567" formControlName="phoneNumber" required>
+                            <mat-error *ngIf="parlorForm.controls['phoneNumber'].invalid">
+                                {{ getErrorMessage(parlorForm.controls['phoneNumber']) }}
+                            </mat-error>
+                        </mat-form-field>
+                        <div>
+                            <button class="float-right" mat-button matStepperNext>Siguiente</button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="userForm">
+                    <form [formGroup]="userForm">
+                        <ng-template matStepLabel>Usuario</ng-template>
+                        <mat-form-field>
+                            <mat-label>Dirección</mat-label>
+                            <input matInput formControlName="address" placeholder="Ex. Calle 127 #7-14, Bogotá"
+                                required>
+                            <mat-error *ngIf="userForm.controls['address'].invalid">
+                                {{ getErrorMessage(userForm.controls['address']) }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Edad</mat-label>
+                            <input type="number" matInput placeholder="18" formControlName="age" required>
+                            <mat-error *ngIf="userForm.controls['age'].invalid">
+                                {{ getErrorMessage(userForm.controls['age']) }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Género</mat-label>
+                            <select matNativeControl formControlName="gender" required>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Masculino">Masculino</option>
+                            </select>
+                            <mat-error *ngIf="userForm.controls['gender'].invalid">
+                                {{ getErrorMessage(userForm.controls['gender']) }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Trabajo</mat-label>
+                            <input matInput placeholder="Profesor" formControlName="job" required>
+                            <mat-error *ngIf="userForm.controls['job'].invalid">
+                                {{ getErrorMessage(userForm.controls['job']) }}
+                            </mat-error>
+                        </mat-form-field>
+                        <div class="float-right">
+                            <button mat-button matStepperPrevious>Atrás</button>
+                            <button mat-button matStepperNext>Siguiente</button>
+                        </div>
+                    </form>
+                </mat-step>
+
+
+                <mat-step [stepControl]="userEducationForm">
+                    <form [formGroup]="userEducationForm">
+                        <ng-template matStepLabel>Educación</ng-template>
+                        <mat-form-field>
+                            <mat-label>Institución</mat-label>
+                            <input matInput formControlName="institution" placeholder="Ex. Calle 127 #7-14, Bogotá"
+                                required>
+                            <mat-error *ngIf="userEducationForm.controls['institution'].invalid">
+                                {{ getErrorMessage(userEducationForm.controls['institution']) }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Fecha inicio</mat-label>
+
+                            <input matInput [matDatepicker]="picker" formControlName="dateInit"
+                                (dateChange)="change('dateInit', $event)" disabled>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker disabled="false"></mat-datepicker>
+
+                            <mat-error *ngIf="userEducationForm.controls['dateInit'].invalid">
+                                {{ getErrorMessage(userEducationForm.controls['dateInit']) }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Fecha fin</mat-label>
+                            <input matInput [matDatepicker]="picker1" formControlName="dateFinish"
+                                (dateChange)="change('dateFinish', $event)" disabled>
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+                            <mat-error *ngIf="userEducationForm.controls['dateFinish'].invalid">
+                                {{ getErrorMessage(userEducationForm.controls['dateFinish']) }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Intereses</mat-label>
+                            <mat-select formControlName="interest" multiple>
+                                <mat-option *ngFor="let interest of interests" [value]="interest.name">
+                                    {{ interest.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Nivel educativo</mat-label>
+                            <mat-select formControlName="levelOfStudy">
+                                <mat-option value="Estudiante">Estudiante</mat-option>
+                                <mat-option value="Tecnico">Tecnico</mat-option>
+                                <mat-option value="Universitario">Universitario</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Profesión</mat-label>
+                            <input matInput formControlName="profesion" placeholder="Abogado" required>
+                            <mat-error *ngIf="userEducationForm.controls['profesion'].invalid">
+                                {{ getErrorMessage(userEducationForm.controls['profesion']) }}
+                            </mat-error>
+                        </mat-form-field>
+                        <div class="float-right">
+                            <button mat-button matStepperPrevious>Atrás</button>
+                            <button mat-button matStepperNext (click)="updateUserAndParlor()">Siguiente</button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel>Hecho</ng-template>
+
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button (click)="stepper.reset()">Reset</button>
+                    </div>
+                </mat-step>
+            </mat-horizontal-stepper>
+
         </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">Save</button>
     </div>
 </ng-template>

@@ -7,6 +7,10 @@ import { ProfileComponent } from './profile.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
+
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -23,6 +27,9 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
     NgbNavModule,

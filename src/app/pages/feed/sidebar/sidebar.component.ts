@@ -1,3 +1,4 @@
+import { UserProfile } from "src/app/models/userProfile.interface";
 import { UserService } from "./../../../services/user/user.service";
 import { Component, OnInit } from '@angular/core';
 
@@ -8,8 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  userName: string;
-  description: string;
+  userProfile: UserProfile;
 
   constructor(private userService: UserService) { }
 
@@ -19,8 +19,8 @@ export class SidebarComponent implements OnInit {
 
   getDetail() {
     this.userService.getDetail().subscribe((res: any) => {
-      this.userName = res.data.firstName + ' ' + res.data.lastName;
-      this.description = res.data.description;
+      console.log(res);
+      this.userProfile = res.data;
     });
   }
 

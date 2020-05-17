@@ -1,9 +1,9 @@
 <div class="card card-custom card-profile">
     <img class="card-img-top" src="assets/img/authentication/banner-profile.jpeg" alt="Card image cap">
     <img class="profile" src="assets/img/authentication/profile.jpeg" alt="">
-    <div class="card-body text-center">
-        <h5>{{ userName }}</h5>
-        <p class="text-left" *ngIf="description"> {{ description }} </p>
+    <div *ngIf="userProfile" class="card-body text-center">
+        <h5>{{ userProfile.firstName + " " + userProfile.lastName + " " + userProfile.secondLastName }}</h5>
+        <p> {{ userProfile.email }} </p>
     </div>
 </div>
 <div class="card card-custom">
