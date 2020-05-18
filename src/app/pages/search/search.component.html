@@ -1,1 +1,42 @@
-<p>search works!</p>
+<section class="user-screen">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div *ngFor="let parlor of parlors" class="card card-custom gutter-b">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-45 symbol-light mr-2">
+                                <span class="symbol-label">
+                                    <img height="60" width="60" src="assets/img/authentication/profile.jpeg"
+                                        class="h-50 align-self-center" alt="">
+                                </span>
+                            </div>
+                            <!--end::Symbol-->
+
+                            <!--begin::Text-->
+                            <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
+                                <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">
+                                    {{ parlor.name }}
+                                </a>
+                                <span class="text-muted font-size-sm font-weight-bold my-1">
+                                    {{ parlor.parlorDescription }}
+                                </span>
+                                <span class="text-muted font-size-sm font-weight-bold">
+                                    Correo: <span class="text-primary font-weight-bold"> {{ parlor.email }} </span>
+                                </span>
+                            </div>
+
+                            <!--end::Text-->
+                        </div>
+                    </div>
+                </div>
+                <ngb-pagination [collectionSize]="20" [pageSize]="5" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
+                    [boundaryLinks]="true"></ngb-pagination>
+            </div>
+            <div class="col-lg-3">
+                
+            </div>
+        </div>
+    </div>
+</section>

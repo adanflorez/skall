@@ -38,7 +38,12 @@ const routes: Routes = [
       {
         path: 'search',
         loadChildren: './pages/search/search.module#SearchModule',
-        // canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'search/:id',
+        loadChildren: './pages/search/search.module#SearchModule',
+        canActivate: [AuthGuard]
       }
     ]
   }

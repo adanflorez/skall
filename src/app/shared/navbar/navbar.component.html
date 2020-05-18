@@ -5,12 +5,12 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="form-inline my-2 my-lg-0">
+            <form [formGroup]="searchForm" class="form-inline my-2 my-lg-0">
                 <div class="input-group input-group-solid">
-                    <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar"
+                    <input type="text" class="form-control" placeholder="Buscar por correo" formControlName="email" aria-label="Buscar por correo"
                         aria-describedby="basic-addon2">
                     <div class="input-group-append justify-content-center">
-                        <i class="fas fa-search"></i>
+                        <i (click)="goToSearch()" class="fas fa-search"></i>
                     </div>
                 </div>
             </form>
@@ -23,7 +23,7 @@
                     <div class="dropdown show">
                         <button class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="profile" src="assets/img/authentication/profile.jpeg" alt="">
+                            <img class="profile" [src]="setLogo()" alt="">
                         </button>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">

@@ -353,7 +353,7 @@
                         <mat-form-field>
                             <mat-label>Fecha inicio</mat-label>
 
-                            <input matInput [matDatepicker]="picker" formControlName="dateInit"
+                            <input matInput [matDatepicker]="picker" [(ngModel)]="dateInit" formControlName="dateInit"
                                 (dateChange)="change('dateInit', $event)" disabled>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker disabled="false"></mat-datepicker>
@@ -364,8 +364,8 @@
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Fecha fin</mat-label>
-                            <input matInput [matDatepicker]="picker1" formControlName="dateFinish"
-                                (dateChange)="change('dateFinish', $event)" disabled>
+                            <input matInput [matDatepicker]="picker1" [(ngModel)]="dateFinish"
+                                formControlName="dateFinish" (dateChange)="change('dateFinish', $event)" disabled>
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1 disabled="false"></mat-datepicker>
                             <mat-error *ngIf="userEducationForm.controls['dateFinish'].invalid">
@@ -382,7 +382,7 @@
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Nivel educativo</mat-label>
-                            <mat-select formControlName="levelOfStudy">
+                            <mat-select formControlName="levelOfStudy" required>
                                 <mat-option value="Estudiante">Estudiante</mat-option>
                                 <mat-option value="Tecnico">Tecnico</mat-option>
                                 <mat-option value="Universitario">Universitario</mat-option>

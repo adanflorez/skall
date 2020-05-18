@@ -120,17 +120,19 @@ export class ProfileComponent implements OnInit {
         { value: this.userProfile.academicList.length ? this.userProfile.academicList[0].finishEducation : '', disabled: true },
         [Validators.required]
       ],
-      levelOfStudy: [
-        this.userProfile.academicList.length ? this.userProfile.academicList[0].levelOfStudy : '',
-        Validators.required
-      ],
+      levelOfStudy: [this.userProfile.academicList[0].levelOfStudy, Validators.required],
       profesion: [
         this.userProfile.academicList.length ? this.userProfile.academicList[0].specialty : '',
         Validators.required
       ],
       skill: [[], Validators.required],
-      interest: [[], Validators.required]
+      interest: [
+        this.userProfile.interestList
+      ]
     });
+    console.log(this.userProfile.academicList);
+
+
   }
 
   initForm(): void {

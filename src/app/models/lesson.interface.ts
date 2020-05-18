@@ -3,5 +3,6 @@ export interface Lesson {
     code: string;
     description: string;
     name: string;
-    status: true;
+    status: boolean;
+    statusSubscriber: boolean;
 }
