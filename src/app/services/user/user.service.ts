@@ -16,8 +16,6 @@ export class UserService {
   }
 
   uploadPhoto(formData: FormData, email: string): Observable<any> {
-    console.log(formData);
-    console.log(email);
     let headers = new HttpHeaders();
     headers = headers.set('Email', email);
     return this.http.post(environment.baseURL + 'user/upload/file',
@@ -98,6 +96,12 @@ export class UserService {
         page: 0,
         size: 5
       }
+    );
+  }
+
+  postUploadFile(formData: FormData){
+    return this.http.post(environment.baseURL + 'publication/upload',
+      formData
     );
   }
 }

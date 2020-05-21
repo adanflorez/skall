@@ -13,6 +13,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 @NgModule({
   declarations: [FeedComponent, SidebarComponent, ContentComponent, AdsSidebarComponent],
   imports: [
@@ -23,7 +26,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatButtonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModalModule
   ]
 })
 export class FeedModule { }
