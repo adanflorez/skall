@@ -90,6 +90,7 @@ export class ProfileComponent implements OnInit {
     const user = this.route.snapshot.paramMap.get('user');
     console.log(user);
     if (typeof user !== 'undefined' && user !== null) {
+      this.isEditable = false;
       console.log('otro perfil');
       this.getParlorByPublicKey(user);
     } else {
