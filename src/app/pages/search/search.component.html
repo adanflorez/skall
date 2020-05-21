@@ -16,7 +16,8 @@
 
                             <!--begin::Text-->
                             <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
-                                <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">
+                                <a [routerLink]="['/profile/', parlor.publickey]"
+                                    class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">
                                     {{ parlor.name }}
                                 </a>
                                 <span class="text-muted font-size-sm font-weight-bold my-1">
@@ -31,11 +32,11 @@
                         </div>
                     </div>
                 </div>
-                <ngb-pagination [collectionSize]="20" [pageSize]="5" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
-                    [boundaryLinks]="true"></ngb-pagination>
+                <ngb-pagination [collectionSize]="20" [pageSize]="5" [(page)]="page" [maxSize]="5" [rotate]="true"
+                    [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
             </div>
             <div class="col-lg-3">
-                
+
             </div>
         </div>
     </div>

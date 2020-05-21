@@ -16,6 +16,10 @@ export class ParlorService {
     return this.http.get(environment.baseURL + 'parlor/');
   }
 
+  getParlorByPublicKey(publicKey: string) {
+    return this.http.get(environment.baseURL + `parlor/detail/${publicKey}`);
+  }
+
   updateParlor(parlorForm: FormGroup): Observable<any> {
     console.log(parlorForm);
     const form = parlorForm.controls;
@@ -34,6 +38,6 @@ export class ParlorService {
   }
 
   getParlorTop(): Observable<any> {
-    return this.http.get(environment.baseURL + 'parlor/top')
+    return this.http.get(environment.baseURL + 'parlor/top');
   }
 }

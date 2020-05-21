@@ -36,6 +36,11 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
+        path: 'profile/:user',
+        loadChildren: './pages/profile/profile.module#ProfileModule',
+        canActivate: [AuthGuard]
+      },
+      {
         path: 'search',
         loadChildren: './pages/search/search.module#SearchModule',
         canActivate: [AuthGuard]

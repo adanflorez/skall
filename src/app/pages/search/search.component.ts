@@ -1,7 +1,7 @@
-import { UserService } from "./../../services/user/user.service";
+import { UserService } from './../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
-import { Parlor } from "src/app/models/parlor.interface";
-import { ActivatedRoute } from "@angular/router";
+import { Parlor } from 'src/app/models/parlor.interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'sk-search',

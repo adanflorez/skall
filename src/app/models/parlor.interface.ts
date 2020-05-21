@@ -8,4 +8,5 @@ export interface Parlor {
     status: boolean;
     subscribers: number;
     lessonNumber: number;
+    publickey: string;
 }

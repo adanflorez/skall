@@ -7,10 +7,11 @@
                         <div class="card card-custom">
                             <img class="card-img-top" src="assets/img/authentication/banner-profile.jpeg"
                                 alt="Card image cap">
-                            <img class="profile" *ngIf="userProfile" [src]="userProfile.logo" alt="">
+                            <img class="profile" *ngIf="userProfile" [src]="userProfile.urlImgUser" alt=""> <!--  -->
                             <div class="container">
                                 <!--begin::Actions-->
-                                <a (click)="open(content)" class="btn btn-light font-weight-bold btn-sm float-right">
+                                <a (click)="open(content)" *ngIf="isEditable"
+                                    class="btn btn-light font-weight-bold btn-sm float-right">
                                     <i class="fas fa-user-edit"></i> Editar
                                 </a>
                                 <!--end::Actions-->
@@ -19,26 +20,28 @@
                                 <nav ngbNav #nav="ngbNav" class="nav-tabs">
                                     <ng-container ngbNavItem>
                                         <a ngbNavLink>Salon</a>
-                                        <ng-template ngbNavContent *ngIf="parlor">
+                                        <ng-template ngbNavContent *ngIf="userProfile">
                                             <div class="my-3">
                                                 <h3 class="text-dark">
-                                                    {{ parlor.name }}
-                                                    <a *ngIf="parlor.status"
+                                                    {{ userProfile.name }}
+                                                    <a *ngIf="userProfile.status"
                                                         class="btn btn-light-primary btn-bold float-right"> Activo </a>
-                                                    <a *ngIf="!parlor.status"
+                                                    <a *ngIf="!userProfile.status"
                                                         class="btn btn-light-danger btn-bold float-right"> Inactivo </a>
                                                 </h3>
-                                                <p> {{parlor.parlorDescription}} </p>
-                                                <a [href]="parlor.notifyUrl" target="_blank" *ngIf="parlor.notifyUrl">
-                                                    <i class="fas fa-globe"></i> {{ parlor.notifyUrl }}
+                                                <p> {{userProfile.parlorDescription}} </p>
+                                                <a [href]="userProfile.notifyUrl" target="_blank"
+                                                    *ngIf="userProfile.notifyUrl">
+                                                    <i class="fas fa-globe"></i> {{ userProfile.notifyUrl }}
                                                     <br>
                                                 </a>
-                                                <a [href]="parlor.email" target="_blank" *ngIf="parlor.email">
-                                                    <i class="far fa-envelope"></i> {{ parlor.email }}
+                                                <a [href]="userProfile.email" target="_blank" *ngIf="userProfile.email">
+                                                    <i class="far fa-envelope"></i> {{ userProfile.email }}
                                                     <br>
                                                 </a>
-                                                <a [href]="parlor.email" target="_blank" *ngIf="parlor.phoneNumber">
-                                                    <i class="fas fa-phone"></i> {{ parlor.phoneNumber }} </a>
+                                                <a [href]="userProfile.phoneNumber" target="_blank"
+                                                    *ngIf="userProfile.phoneNumber">
+                                                    <i class="fas fa-phone"></i> {{ userProfile.phoneNumber }} </a>
                                             </div>
                                         </ng-template>
                                     </ng-container>
@@ -47,11 +50,11 @@
                                         <ng-template ngbNavContent>
                                             <div class="my-3">
                                                 <h3 class="text-dark">
-                                                    {{ userProfile.firstName + " " + userProfile.lastName + " " + userProfile.secondLastName }}
+                                                    {{ userProfile.firstNameUser + " " + userProfile.lastNameUser + " " + userProfile.secondLastNameUser }}
                                                 </h3>
-                                                <p *ngIf="userProfile.address">
+                                                <p *ngIf="userProfile.addressUser">
                                                     <i class="fas fa-map-pin icon-success"></i>
-                                                    {{ userProfile.address }}
+                                                    {{ userProfile.addressUser }}
                                                 </p>
                                                 <a [href]="userProfile.email" target="_blank" *ngIf="userProfile.email">
                                                     <i class="far fa-envelope"></i> {{ userProfile.email }} </a>
@@ -59,9 +62,9 @@
                                                 <a [href]="userProfile.email" target="_blank"
                                                     *ngIf="userProfile.phoneNumber">
                                                     <i class="fas fa-phone"></i> {{ userProfile.phoneNumber }} </a>
-                                                <p *ngIf="userProfile.gender">
+                                                <p *ngIf="userProfile.genderUser">
                                                     <i class="fas fa-venus-mars icon-danger"></i>
-                                                    {{ userProfile.gender }}
+                                                    {{ userProfile.genderUser }}
                                                 </p>
                                             </div>
                                         </ng-template>
@@ -88,7 +91,7 @@
                                     </div>
                                     <span class="symbol symbol-light-success symbol-45">
                                         <span class="symbol-label font-weight-bold font-size-h6"
-                                            *ngIf="parlor">{{ parlor.subscribers }}</span>
+                                            *ngIf="userProfile">{{ userProfile.subscribers }}</span>
                                     </span>
                                 </div>
                             </div>
@@ -109,8 +112,8 @@
                                         <h4 class="text-muted mt-2">Clases</h4>
                                     </div>
                                     <span class="symbol symbol-light-primary symbol-45">
-                                        <span *ngIf="parlor"
-                                            class="symbol-label font-weight-bold">{{ parlor.lessonNumber }}</span>
+                                        <span *ngIf="userProfile"
+                                            class="symbol-label font-weight-bold">{{ userProfile.numberLesson }}</span>
                                     </span>
                                 </div>
                             </div>
@@ -337,8 +340,6 @@
                         </div>
                     </form>
                 </mat-step>
-
-
                 <mat-step [stepControl]="userEducationForm">
                     <form [formGroup]="userEducationForm">
                         <ng-template matStepLabel>Educación</ng-template>
@@ -403,10 +404,10 @@
                 </mat-step>
                 <mat-step>
                     <ng-template matStepLabel>Hecho</ng-template>
-
                     <div>
-                        <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button (click)="stepper.reset()">Reset</button>
+                        <p>{{ parlorUpdateState }}</p>
+                        <p>{{ userUpdateState }}</p>
+                        <p>{{ educationUpdateState }}</p>
                     </div>
                 </mat-step>
             </mat-horizontal-stepper>

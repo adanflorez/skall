@@ -1,3 +1,4 @@
+import { ActivatedRoute } from "@angular/router";
 import { LessonsService } from './../../services/lessons/lessons.service';
 import { Parlor } from './../../models/parlor.interface';
 import { ParlorService } from './../../services/parlor/parlor.service';
@@ -27,7 +28,6 @@ export class ProfileComponent implements OnInit {
 
   publicKey: string;
 
-  parlor: Parlor;
   userProfile: UserProfile;
 
   classForm: FormGroup;
@@ -68,46 +68,58 @@ export class ProfileComponent implements OnInit {
   parlorForm: FormGroup;
   userForm: FormGroup;
   userEducationForm: FormGroup;
-
   interests: Array<Interest>;
-
   dateInit: Date;
   dateFinish: Date;
+
+  parlorUpdateState: string;
+  userUpdateState: string;
+  educationUpdateState: string;
+  isEditable = false;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private parlorService: ParlorService,
     private lessonService: LessonsService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    const user = this.route.snapshot.paramMap.get('user');
+    console.log(user);
+    if (typeof user !== 'undefined' && user !== null) {
+      console.log('otro perfil');
+      this.getParlorByPublicKey(user);
+    } else {
+      this.isEditable = true;
+      console.log('perfil propio');
+      this.getDetail();
+    }
     this.initForm();
-    this.getDetail();
-    this.getParlor();
     this.getCategoriesLesson();
   }
 
   initStepper() {
     this.parlorForm = this.fb.group({
-      name: [this.parlor.name, Validators.required],
-      description: [this.parlor.parlorDescription, Validators.required],
-      url: [this.parlor.notifyUrl],
-      email: [this.parlor.email, [Validators.required, Validators.email]],
-      phoneNumber: [this.parlor.phoneNumber, Validators.required],
+      name: [this.userProfile.name, Validators.required],
+      description: [this.userProfile.parlorDescription, Validators.required],
+      url: [this.userProfile.notifyUrl],
+      email: [this.userProfile.email, [Validators.required, Validators.email]],
+      phoneNumber: [this.userProfile.phoneNumber, Validators.required],
     });
 
     this.userForm = this.fb.group({
-      address: [this.userProfile.address, Validators.required],
-      age: [this.userProfile.age, Validators.required],
-      gender: [this.userProfile.gender, Validators.required],
-      job: [this.userProfile.job, Validators.required]
+      address: [this.userProfile.addressUser, Validators.required],
+      age: [this.userProfile.ageUser, Validators.required],
+      gender: [this.userProfile.genderUser, Validators.required],
+      job: [this.userProfile.jobUser, Validators.required]
     });
 
     this.userEducationForm = this.fb.group({
       institution: [
-        this.userProfile.academicList.length ? this.userProfile.academicList[0].nameInstitucion : '', Validators.required
+        this.userProfile.academicList.length ? this.userProfile.academicList[0].institution : '', Validators.required
       ],
       dateInit: [
         {
@@ -120,7 +132,8 @@ export class ProfileComponent implements OnInit {
         { value: this.userProfile.academicList.length ? this.userProfile.academicList[0].finishEducation : '', disabled: true },
         [Validators.required]
       ],
-      levelOfStudy: [this.userProfile.academicList[0].levelOfStudy, Validators.required],
+      levelOfStudy: [
+        this.userProfile.academicList.length ? this.userProfile.academicList[0].levelOfStudy : '', Validators.required],
       profesion: [
         this.userProfile.academicList.length ? this.userProfile.academicList[0].specialty : '',
         Validators.required
@@ -130,9 +143,6 @@ export class ProfileComponent implements OnInit {
         this.userProfile.interestList
       ]
     });
-    console.log(this.userProfile.academicList);
-
-
   }
 
   initForm(): void {
@@ -148,17 +158,27 @@ export class ProfileComponent implements OnInit {
     this.userService.getDetail().subscribe(res => {
       console.log(res.data);
       this.userProfile = res.data;
+      console.log(this.userProfile);
     }, (err: HttpErrorResponse) => {
       console.error(err);
     });
   }
 
-  getParlor() {
+  /* getParlor() {
     this.parlorService.getParlor().subscribe(res => {
       console.log(res);
       this.parlor = res.data;
       this.publicKey = res.data.publicKey;
       this.getLessons(this.publicKey);
+    }, err => {
+      console.error(err);
+    });
+  } */
+
+  getParlorByPublicKey(publicKey: string) {
+    this.parlorService.getParlorByPublicKey(publicKey).subscribe((res: any) => {
+      this.userProfile = res.data;
+      console.log(res);
     }, err => {
       console.error(err);
     });
@@ -245,12 +265,16 @@ export class ProfileComponent implements OnInit {
   updateUserAndParlor() {
     this.parlorService.updateParlor(this.parlorForm).subscribe(res => {
       console.log(res);
+      this.parlorUpdateState = 'Datos de clase actualizados correctamente';
     }, err => {
       console.error(err);
+      this.parlorUpdateState = 'Error al actualizar datos de clase';
     });
     this.userService.update(this.userForm).subscribe(res => {
       console.log(res);
+      this.userUpdateState = 'Datos de usuario actualizados correctamente';
     }, err => {
+      this.userUpdateState = 'Error al actualizar datos de usuario';
       console.error(err);
     });
     this.userService.updateEducation(
@@ -258,8 +282,10 @@ export class ProfileComponent implements OnInit {
       this.dateInit,
       this.dateFinish
     ).subscribe(res => {
+      this.educationUpdateState = 'Datos de educación actualizados correctamente';
       console.log(res);
     }, err => {
+      this.educationUpdateState = 'Error al actualizar datos de educación';
       console.error(err);
     });
   }
