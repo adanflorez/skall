@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(
       this.loginForm.controls.username.value,
       this.loginForm.controls.password.value)
-      .subscribe((res: any /* HttpResponse<UserLogged> */) => {
+      .subscribe((res: any) => {
         const token = res.Authorization;
         const sessionId = res.SessionId;
 

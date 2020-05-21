@@ -21,6 +21,7 @@ export class SidebarComponent implements OnInit {
     this.userService.getDetail().subscribe((res: any) => {
       console.log(res);
       this.userProfile = res.data;
+      localStorage.setItem('publicKey', res.data.publicKey);
       localStorage.setItem('logo', this.userProfile.urlImgUser);
     });
   }

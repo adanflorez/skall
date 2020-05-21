@@ -1,6 +1,6 @@
 <div *ngIf="userProfile" class="card card-custom card-profile">
     <img class="card-img-top" src="assets/img/authentication/banner-profile.jpeg" alt="Card image cap">
-    <img class="profile" [src]="userProfile.logo" alt="">
+    <img class="profile" [src]="userProfile.urlImgUser" alt="">
     <div class="card-body text-center">
         <h5>{{ userProfile.firstNameUser + " " + userProfile.lastNameUser + " " + userProfile.secondLastNameUser }}</h5>
         <p> {{ userProfile.email }} </p>

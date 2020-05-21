@@ -81,4 +81,23 @@ export class UserService {
       }
     );
   }
+
+  createPost(code: string, description: string, img?: string): Observable<any> {
+    return this.http.post(environment.baseURL + 'publication/create',
+      {
+        code,
+        description,
+        img
+      }
+    );
+  }
+
+  getAllPost(): Observable<any> {
+    return this.http.post(environment.baseURL + 'publication/all',
+      {
+        page: 0,
+        size: 5
+      }
+    );
+  }
 }

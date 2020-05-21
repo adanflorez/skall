@@ -159,21 +159,12 @@ export class ProfileComponent implements OnInit {
       console.log(res.data);
       this.userProfile = res.data;
       console.log(this.userProfile);
+      this.publicKey = res.data.publicKey;
+      this.getLessons(this.publicKey);
     }, (err: HttpErrorResponse) => {
       console.error(err);
     });
   }
-
-  /* getParlor() {
-    this.parlorService.getParlor().subscribe(res => {
-      console.log(res);
-      this.parlor = res.data;
-      this.publicKey = res.data.publicKey;
-      this.getLessons(this.publicKey);
-    }, err => {
-      console.error(err);
-    });
-  } */
 
   getParlorByPublicKey(publicKey: string) {
     this.parlorService.getParlorByPublicKey(publicKey).subscribe((res: any) => {
@@ -186,6 +177,7 @@ export class ProfileComponent implements OnInit {
 
   getLessons(key: string) {
     this.lessonService.getLesson(0, '', 10000, key).subscribe(res => {
+      console.log(res);
       this.lessons = res.data.lesson;
     }, err => {
       console.error(err);
