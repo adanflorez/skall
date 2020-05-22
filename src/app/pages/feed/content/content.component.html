@@ -41,7 +41,7 @@
             <!--begin::Symbol-->
             <div class="mr-3">
                 <span class="symbol-label">
-                    <img height="40" width="40" src="assets/img/authentication/profile-user.png"
+                    <img height="40" width="40" [src]="lp.img || 'assets/img/authentication/profile-user.png'"
                         class="h-75 align-self-end" alt="">
                 </span>
             </div>
@@ -49,10 +49,11 @@
 
             <!--begin::Text-->
             <div class="d-flex flex-column flex-grow-1 font-weight-bold">
-                <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">
-                    {{ lp.parlorName }}
+                <a [routerLink]="['/profile', lp.parlorDetail.publicKey]"
+                    class="text-dark text-hover-primary mb-1 font-size-lg">
+                    {{ lp.parlorDetail.name }}
                 </a>
-                <span class="text-muted"> {{ lp.lessonName }} </span>
+                <span class="text-muted"> {{ lp.lessonName + " - " + lp.categoryLesson }} </span>
             </div>
             <!--end::Text-->
 

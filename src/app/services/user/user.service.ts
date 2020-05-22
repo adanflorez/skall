@@ -94,7 +94,7 @@ export class UserService {
     return this.http.post(environment.baseURL + 'publication/all',
       {
         page: 0,
-        size: 5
+        size: 20
       }
     );
   }

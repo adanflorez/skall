@@ -15,8 +15,10 @@ export class AdsSidebarComponent implements OnInit {
 
   ngOnInit() {
     this.parlorService.getParlorTop().subscribe(res => {
-      console.log(res)
+      console.log(res);
       this.parlorTop = res.data.parlor;
+    }, err => {
+      console.error(err);
     });
   }
 

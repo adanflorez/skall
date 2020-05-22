@@ -15,7 +15,7 @@ export class ContentComponent implements OnInit {
 
   postForm: FormGroup;
   lessons: Array<Lesson>;
-  listPublication: Array<ListPublication>;
+  listPublication: Array<any>;
   postFormDisabled = false;
 
   logo: string;
@@ -46,7 +46,11 @@ export class ContentComponent implements OnInit {
       this.logo = res.data.urlImgUser;
       this.lessonService.getLesson(0, '', 10000, res.data.publicKey).subscribe(response => {
         this.lessons = response.data.lesson;
+      }, err => {
+        console.error(err);
       });
+    }, err => {
+      console.error(err);
     });
   }
 
@@ -73,6 +77,8 @@ export class ContentComponent implements OnInit {
           this.postFormDisabled = false;
           console.error(err);
         });
+      }, err => {
+        console.error(err);
       });
     } else {
       this.userService.createPost(code, lessons).subscribe(response => {
