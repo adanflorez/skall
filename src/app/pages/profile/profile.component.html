@@ -222,13 +222,13 @@
                                             </h3>
                                         </div>
                                         <div class="card-toolbar">
-                                            <a *ngIf="lesson.statusSubscriber" (click)="open(subscribe, 'modal', lesson.code)"
+                                            <a *ngIf="!lesson.statusSubscriber" (click)="open(subscribe, 'modal', lesson.code)"
                                                 class="btn btn-sm btn-white font-weight-bold">
                                                 <i class="fas fa-check icon-success"></i> Seguir
                                             </a>
-                                            <a *ngIf="!lesson.statusSubscriber" (click)="subscribeToLesson(lesson.code)"
+                                            <a *ngIf="lesson.statusSubscriber" (click)="subscribeToLesson(lesson.code)"
                                                 href="#" class="btn btn-sm btn-white font-weight-bold">
-                                                <i class="fas fa-times icon-danger"></i> Dejar de seguir
+                                                <i class="fas fa-times icon-danger"></i> No seguir
                                             </a>
                                         </div>
                                     </div>

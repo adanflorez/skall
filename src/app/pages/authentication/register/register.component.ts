@@ -94,11 +94,11 @@ export class RegisterComponent implements OnInit {
     return field.hasError('email') ? 'Correo inválido' : '';
   }
 
-  registerUser(fileUrl: string) {
+  registerUser(fileUrl?: string) {
     this.formDisabled = true;
     this.authService.registerUser(this.validationForm.value, fileUrl).subscribe(res => {
       this.formDisabled = false;
-      this.uploadFile();
+      if (fileUrl) { this.uploadFile(); }
     }, (err: HttpErrorResponse) => {
       console.error(err);
       this.alertState = true;

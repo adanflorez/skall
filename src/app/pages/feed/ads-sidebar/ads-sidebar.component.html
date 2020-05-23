@@ -5,15 +5,15 @@
             <!--begin::Symbol-->
             <div class="mr-3">
                 <span class="symbol-label">
-                    <img height="40" width="40" [src]="pt.imgUrl" class="h-75 align-self-end"
-                        alt="">
+                    <img height="40" width="40" [src]="pt.imgUrl" class="h-75 align-self-end" alt="">
                 </span>
             </div>
             <!--end::Symbol-->
 
             <!--begin::Text-->
             <div class="d-flex flex-column flex-grow-1 font-weight-bold">
-                <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg"> {{ pt.name }} </a>
+                <a [routerLink]="['/profile', pt.publicKey]" class="text-dark text-hover-primary mb-1 font-size-lg">
+                    {{ pt.name }} </a>
                 <span class="text-muted">{{ pt.parlorDescription }}</span>
             </div>
             <!--end::Text-->
