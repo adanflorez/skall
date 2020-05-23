@@ -98,7 +98,7 @@ export class RegisterComponent implements OnInit {
     this.formDisabled = true;
     this.authService.registerUser(this.validationForm.value, fileUrl).subscribe(res => {
       this.formDisabled = false;
-      if (fileUrl) { this.uploadFile(); }
+      this.uploadFile();
     }, (err: HttpErrorResponse) => {
       console.error(err);
       this.alertState = true;
