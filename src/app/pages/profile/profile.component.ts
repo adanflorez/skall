@@ -167,6 +167,7 @@ export class ProfileComponent implements OnInit {
   getParlorByPublicKey(publicKey: string) {
     this.parlorService.getParlorByPublicKey(publicKey).subscribe((res: any) => {
       this.userProfile = res.data;
+      this.getLessons(publicKey);
     }, err => {
       console.error(err);
     });
