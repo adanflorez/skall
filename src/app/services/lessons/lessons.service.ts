@@ -39,4 +39,15 @@ export class LessonsService {
     });
   }
 
+  subscribe(code: string, password: string): Observable<any> {
+    if (typeof password === 'undefined') { password = ''; }
+    console.log(password);
+    return this.http.post(environment.baseURL + 'lesson/subscriber',
+      {
+        code,
+        password
+      }
+    );
+  }
+
 }

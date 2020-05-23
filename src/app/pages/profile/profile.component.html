@@ -10,7 +10,7 @@
                             <img class="profile" *ngIf="userProfile" [src]="userProfile.urlImgUser" alt=""> <!--  -->
                             <div class="container">
                                 <!--begin::Actions-->
-                                <a (click)="open(content)" *ngIf="isEditable"
+                                <a (click)="open(content, 'edit')" *ngIf="isEditable"
                                     class="btn btn-light font-weight-bold btn-sm float-right">
                                     <i class="fas fa-user-edit"></i> Editar
                                 </a>
@@ -122,9 +122,6 @@
                         <!--end::Stats Widget 13-->
                     </div>
                 </div>
-                <div class="row">
-
-                </div>
             </div>
             <div *ngIf="isEditable" class="col-xl-4">
                 <div class="col-xl-12">
@@ -225,8 +222,13 @@
                                             </h3>
                                         </div>
                                         <div class="card-toolbar">
-                                            <a href="#" class="btn btn-sm btn-white font-weight-bold">
-                                                <i class="fas fa-check"></i> Seguir
+                                            <a *ngIf="lesson.statusSubscriber" (click)="open(subscribe, 'modal', lesson.code)"
+                                                class="btn btn-sm btn-white font-weight-bold">
+                                                <i class="fas fa-check icon-success"></i> Seguir
+                                            </a>
+                                            <a *ngIf="!lesson.statusSubscriber" (click)="subscribeToLesson(lesson.code)"
+                                                href="#" class="btn btn-sm btn-white font-weight-bold">
+                                                <i class="fas fa-times icon-danger"></i> Dejar de seguir
                                             </a>
                                         </div>
                                     </div>
@@ -412,6 +414,24 @@
                 </mat-step>
             </mat-horizontal-stepper>
 
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #subscribe let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Ingresa la contraseña</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <mat-form-field>
+            <mat-label>Contraseña</mat-label>
+            <input [(ngModel)]="passwordToSubscribe" matInput placeholder="Salon" type="password">
+        </mat-form-field>
+        <div>
+            <button class="float-right" mat-button (click)="subscribeToLesson()">Subscribirse</button>
         </div>
     </div>
 </ng-template>

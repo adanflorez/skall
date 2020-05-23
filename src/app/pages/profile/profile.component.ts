@@ -77,6 +77,8 @@ export class ProfileComponent implements OnInit {
   educationUpdateState: string;
   isEditable = false;
 
+  passwordToSubscribe: string;
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -88,14 +90,11 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     const user = this.route.snapshot.paramMap.get('user');
-    console.log(user);
     if (typeof user !== 'undefined' && user !== null) {
       this.isEditable = false;
-      console.log('otro perfil');
       this.getParlorByPublicKey(user);
     } else {
       this.isEditable = true;
-      console.log('perfil propio');
       this.getDetail();
     }
     this.initForm();
@@ -157,9 +156,7 @@ export class ProfileComponent implements OnInit {
 
   getDetail() {
     this.userService.getDetail().subscribe(res => {
-      console.log(res.data);
       this.userProfile = res.data;
-      console.log(this.userProfile);
       this.publicKey = res.data.publicKey;
       this.getLessons(this.publicKey);
     }, (err: HttpErrorResponse) => {
@@ -170,7 +167,6 @@ export class ProfileComponent implements OnInit {
   getParlorByPublicKey(publicKey: string) {
     this.parlorService.getParlorByPublicKey(publicKey).subscribe((res: any) => {
       this.userProfile = res.data;
-      console.log(res);
     }, err => {
       console.error(err);
     });
@@ -196,14 +192,12 @@ export class ProfileComponent implements OnInit {
   getCategoriesLesson() {
     this.lessonService.getCategoriesLesson().subscribe((res: any) => {
       this.categoriesLesson = res.data.categoryLesson;
-      console.log(this.categoriesLesson);
     });
   }
 
   getInterests() {
     this.userService.getInterest().subscribe(res => {
       this.interests = res.data.interest;
-      console.log(res);
     }, err => {
       console.error(err);
     });
@@ -217,7 +211,6 @@ export class ProfileComponent implements OnInit {
       form.controls['title'].value,
       form.controls['password'].value
     ).subscribe(res => {
-      console.log(res);
       this.getLessons(this.publicKey);
       this.alertType = 'success';
       this.alertMessage = 'Clase creada';
@@ -235,9 +228,13 @@ export class ProfileComponent implements OnInit {
     this.alertState = false;
   }
 
-  open(content) {
-    this.initStepper();
-    this.getInterests();
+  open(content: any, type: string, code?: string) {
+    if (type === 'edit') {
+      this.initStepper();
+      this.getInterests();
+    } else {
+      localStorage.setItem('lessonCode', code);
+    }
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -257,14 +254,12 @@ export class ProfileComponent implements OnInit {
 
   updateUserAndParlor() {
     this.parlorService.updateParlor(this.parlorForm).subscribe(res => {
-      console.log(res);
       this.parlorUpdateState = 'Datos de clase actualizados correctamente';
     }, err => {
       console.error(err);
       this.parlorUpdateState = 'Error al actualizar datos de clase';
     });
     this.userService.update(this.userForm).subscribe(res => {
-      console.log(res);
       this.userUpdateState = 'Datos de usuario actualizados correctamente';
     }, err => {
       this.userUpdateState = 'Error al actualizar datos de usuario';
@@ -276,7 +271,6 @@ export class ProfileComponent implements OnInit {
       this.dateFinish
     ).subscribe(res => {
       this.educationUpdateState = 'Datos de educación actualizados correctamente';
-      console.log(res);
     }, err => {
       this.educationUpdateState = 'Error al actualizar datos de educación';
       console.error(err);
@@ -284,7 +278,6 @@ export class ProfileComponent implements OnInit {
   }
 
   change(date: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(event.value);
     switch (date) {
       case 'dateInit':
         this.dateInit = event.value;
@@ -293,5 +286,20 @@ export class ProfileComponent implements OnInit {
         this.dateFinish = event.value;
         break;
     }
+  }
+
+  subscribeToLesson(code?: string) {
+    if (!code) {
+      code = localStorage.getItem('lessonCode');
+    }
+    console.log(code);
+    console.log(this.passwordToSubscribe);
+    this.lessonService.subscribe(code, this.passwordToSubscribe).subscribe(res => {
+      console.log(res);
+      this.getLessons(this.publicKey);
+      this.modalService.dismissAll();
+    }, err => {
+      console.error(err);
+    });
   }
 }
